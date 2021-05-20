@@ -1,0 +1,1 @@
+This is the end of studies project, it's a solution to a schedueling problem 
