@@ -1,5 +1,4 @@
 def greedy_shift(inst) :
-for 
     timean=[]
     for j in range(inst.m): # j machines 
         som=0 

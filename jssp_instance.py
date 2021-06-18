@@ -1,11 +1,13 @@
 from product import product
+import math
 class instance :
-
-    def __init__ (self, mfab, n, lin , prod):
+    def __init__ (self, mfab, n, lin , netmin, netmaj, prod):
         self.n = n
         self.prod = prod
         self.lin = lin
         self.mfab= mfab
+        netmin = netmin
+        netmaj = netmaj
         self.times =[]
         self.b=[]
         self.g = []
@@ -16,7 +18,7 @@ class instance :
 
     def filltimes(self):
         for i in range(self.n):
-            self.times.append(self.prod.times)
+            self.times.append(self.prod[i].times)
             """
             jtimes=[]
             for j in range (self.mach):
@@ -27,7 +29,7 @@ class instance :
             self.lots.append(self.dem + int(self.sec) - int(self.sinit))
     """
     def fillfab(self):
-        for i in range(self.prod):
+        for i in range(self.n):
             jfab=[]
             for j in range(self.mfab):
                 if self.times[i][j] != 0:
@@ -38,7 +40,7 @@ class instance :
         return self.fab 
     
     def fillcon(self):
-        for i in range(self.prod):
+        for i in range(self.n):
             jcon=[]
             for j in range(self.mfab,self.mach):
                 if self.times[i][j] != 0:
@@ -50,7 +52,7 @@ class instance :
     
     def fillb(self):
         r=0
-        for i in range(self.prod):
+        for i in range(self.prod): 
             lb=[]
             for l in range(sum(self.lots)):
                 if (l>=r) & (l < r+self.lots[i]):
@@ -68,3 +70,20 @@ class instance :
                 self.g.append(self.b[i])
             r= r+self.lots[i]
         return self.g
+
+## Exemple
+mfab=3
+n=6
+lin=2
+netmin = 4
+netmaj = 18
+prod1 = product('produit1', [2, 3, 2, 18, 0], 18, 1000, 4, 5, 100)
+prod2 = product('produit2', [1, 3, 3, 0, 16], 16, 2000, 5, 3, 150)
+prod3 = product('produit3', [2, 4, 4, 20, 20], 20, 1500, 0, 5, 100)
+prod4 = product('produit4', [3, 3, 0, 15, 15], 15, 1000, 0, 2, 175)
+prod5 = product('produit5', [3, 2, 0, 18, 0], 18, 2550, 3, 10, 250)
+prod6 = product('produit1', [2, 3, 0, 0, 17], 17, 3000, 7, 3, 200)
+
+prod=[prod1, prod2, prod3, prod4, prod5, prod6]
+
+jssp = instance(mfab, n, lin , netmin, netmaj, prod)
