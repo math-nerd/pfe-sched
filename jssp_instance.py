@@ -7,6 +7,7 @@ class instance : # classe des instances du problème
         self.prod = prod #liste de produits
         self.lin = lin #nombre de lignes de conditionnement
         self.mfab= mfab # nombre de machine de fabrication
+        self.m= lin + mfab
         self.netmin = netmin # temps de nettoyage mineur
         self.netmaj = netmaj # temps de nettoyage majeur
         self.times =[] # initialiser la matrice des temps de traitement
