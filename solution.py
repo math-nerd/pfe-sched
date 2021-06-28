@@ -80,7 +80,7 @@ class solution:
 
             
 
-
+""""
 
 ## Exemple
 mfab=3
@@ -109,5 +109,5 @@ sol1.decode()
 print("FT=", sol1.FT)
 print("CT=", sol1.CT)
 print("Cmax = ", sol1.Cmax )
-
+"""
 

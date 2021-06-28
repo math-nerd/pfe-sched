@@ -5,11 +5,11 @@ def colonne(liste, j):
         return[item[j] for item in liste]
 
 class construct_sol:
-    def __init__(self, inst):
+    def __init__(self, inst): # une objet de la classe instance est donnée comme entrée
         self.inst=inst
-        self.Y = [[[0]*sum(inst.lots) for _ in range(sum(inst.lots))] for _ in range(inst.mfab)]
-        self.U = [[[0]*sum(inst.lots) for _ in range(sum(inst.lots))] for _ in range(inst.lin)]
-        self.X = [[0]*inst.lin for _ in range(sum(inst.lots))]
+        self.Y = [[[0]*inst.L for _ in range(inst.L)] for _ in range(inst.mfab)]
+        self.U = [[[0]*inst.L for _ in range(inst.L)] for _ in range(inst.lin)]
+        self.X = [[0]*inst.lin for _ in range(inst.L)]
 
     def goulot(self):
         somme=[sum(colonne(self.inst.times, j)) for j in range(self.inst.m)]
@@ -31,7 +31,7 @@ class construct_sol:
             k=sum(self.inst.lots[0:prod_max]) # nbr de lots avant prod max
             for lot in range(k, k+self.inst.lots[prod_max]):
                 deja_vu.append(lot)
-                for l in range(sum(self.inst.lots)) :
+                for l in range(self.inst.L) :
                     if not l in deja_vu:
                         self.Y[machg][lot][l]=1
                 jtimes[prod_max]=-1
@@ -40,9 +40,9 @@ class construct_sol:
 
         
     def fill_X(self):
-        somme_Y=[sum(self.Y[0][l]) for l in range(len(self.Y[0]))]
+        somme_Y=[sum(self.Y[0][l]) for l in range(self.inst.L)]
         T=[0]*self.inst.lin
-        for l in range(len(self.Y[0])):
+        for l in range(self.inst.L):
             ind = somme_Y.index(max(somme_Y))
             list_T=list(T)
             for a in range(self.inst.lin):
@@ -67,7 +67,7 @@ class construct_sol:
                 deja_vu.append(l)
                 for a in range(self.inst.lin):
                     a_i=list_T.index(min(list_T))
-                    for lot in range(sum(self.inst.lots)):
+                    for lot in range(self.inst.L):
                         for p in range(self.inst.lin):
                             if lot not in deja_vu:
                                 self.U[p][l][lot]=1  
@@ -80,8 +80,9 @@ class construct_sol:
             somme_con[lin_min]=100000
         
     def greedy(self):
-        #print(Y)
-        if self.goulot() == 1: ##si l'étape goulot est la fabrication CHANGE!!!
+        # je veux appliquer la méthode process_input avant de commencer la construction de la solution
+        #self.inst.process_input()
+        if self.goulot() == 0: ##si l'étape goulot est la fabrication
             machg= self.mach_goulot()
             self.fill_Y(machg)
             for a in range(self.inst.lin):
@@ -103,7 +104,7 @@ class construct_sol:
 
 
 
-
+"""
 
 
 mfab=3
@@ -127,3 +128,4 @@ sol_init.greedy()
 print("Y = ", sol_init.Y)
 print("U = ", sol_init.U)
 print("X = ", sol_init.X)
+"""

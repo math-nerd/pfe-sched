@@ -16,7 +16,8 @@ class instance : # classe des instances du problème
         self.fab=[] # initialiser fab (n*mfab) = 1 si le produit i passe par la machine j
         self.con=[] # initialiser con (n*lin) = 1 si le produit i peut passer par la line a
         self.lots=[] # vecteur de nombre de lots à fabriquer pour chaque produit
-        self.pc=[] # temps de conditionnement 
+        self.pc=[] # temps de conditionnement
+        self.L=0 
     
     def filllots(self):
         for i in range(self.n):
@@ -81,9 +82,10 @@ class instance : # classe des instances du problème
         self.fillb()
         self.fillg()
         self.fillpc()
+        self.L = sum(self.lots)
 
 
-
+"""
 ## Exemple
 mfab=3
 lin=2
@@ -105,3 +107,4 @@ jssp.process_input()
 #print(jssp.g)
 #print(jssp.b)
 #print(len(jssp.g))
+"""

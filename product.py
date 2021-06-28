@@ -1,7 +1,4 @@
 import math 
-m = 5
-n = 6
-
 def colonne(liste, j): ## fonction pour avoir la colonne j+1 d'une matrice (liste de listes)
     return[item[j] for item in liste]
 
