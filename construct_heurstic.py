@@ -104,19 +104,19 @@ class construct_sol:
 
 
 
-"""
+
 
 
 mfab=3
 lin=2
 netmin = 4
 netmaj = 18
-prod1 = product('produit1', [2, 3, 2, 18, 0], 18, 300, 0, 0,300)
-prod2 = product('produit2', [1, 3, 3, 0, 16], 16, 300, 0, 0, 100)
-prod3 = product('produit3', [2, 4, 4, 20, 20], 20, 400, 0, 0, 400)
-prod4 = product('produit4', [3, 3, 0, 15, 15], 15, 1000, 0, 0, 1000)
-prod5 = product('produit5', [3, 2, 0, 18, 0], 18, 2550, 0, 0, 2550)
-prod6 = product('produit1', [2, 3, 0, 0, 17], 17, 3000, 0, 0, 3000)
+prod1 = product('produit1', [3, 5, 3, 16, 0], 16, 170, 0, 0,1)
+prod2 = product('produit2', [3, 5, 3, 21, 0], 21, 15, 0, 0, 1)
+prod3 = product('produit3', [3, 5, 3, 22, 22], 22, 78, 0, 0, 4)
+prod4 = product('produit4', [3, 5, 3, 0, 15], 15, 230, 0, 0, 1)
+prod5 = product('produit5', [3, 5, 3, 0, 24], 24, 23, 0, 0, 1)
+prod6 = product('produit1', [3, 5, 3, 16, 0], 16, 46, 0, 0, 1)
 
 prod=[prod1, prod2, prod3, prod4, prod5, prod6]
 
@@ -128,4 +128,3 @@ sol_init.greedy()
 print("Y = ", sol_init.Y)
 print("U = ", sol_init.U)
 print("X = ", sol_init.X)
-"""

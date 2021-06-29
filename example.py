@@ -1,14 +1,16 @@
-F = [1, 2, 4]
-B= F
-C = F.copy()
-print("F =",  F)
-print("B =",  B)
-print("C =",  C)
-F[1] = 15
-print("F =",  F)
-print("B =",  B)
-print("C =",  C)
-E = [1, "hi", (1,3)]
-print(E[0])
-print(E[1])
-print(E[2])
+from product import product
+
+def two_var():
+  A = product('produit1', [2, 3, 2, 18, 0], 18, 1, 0, 0,1)
+  B = "sup"
+  return A,B
+
+C=two_var()
+print(C)
+print(C[0].name)
+print(C[1])
+
+F= [2, 3, 2, 18, 0]
+F.pop()
+print(F)
+print(5 not in F)

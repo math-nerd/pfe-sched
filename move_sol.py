@@ -48,6 +48,7 @@ def getlot_after(sol_temp, l, j, somme_Y):
 def Y_move(sol_temp):
     j = random.choice(range(sol_temp.inst.mfab)) # choix aléatoire de la machine 
     somme_Y = [sum(sol_temp.Y[j][l]) for l in range(len(sol_temp.Y[0]))]
+    print("somm_Y=",  somme_Y)
     l = random_lot(sol_temp, j)
     bef_aft = random.choice([1,2])
     if ((bef_aft == 1) & (somme_Y[l]!=len(sol_temp.Y[0]) -1)) | (somme_Y[l] == 0) : # on permute avec le lot qui vient AVANT
@@ -60,10 +61,13 @@ def Y_move(sol_temp):
         if (check_process(sol_temp, ind_l2, j) == 0 & somme_Y[ind_l2] == len(somme_Y)):
             ind_l2 = getlot_before(sol_temp, l, j, somme_Y) ## problem if the lot is the only one procesed on j 
         sol_temp.Y[j][l][ind_l2],sol_temp.Y[j][ind_l2][l] = sol_temp.Y[j][ind_l2][l],sol_temp.Y[j][l][ind_l2]
+
+    return [sol_temp, ('Y',j,l,ind_l2)]
             
 def U_move(sol_temp):
     a = random.choice(range(sol_temp.inst.lin)) # choix aléatoire de la ligne 
     somme_U = [sum(sol_temp.U[a][l]) for l in range(len(sol_temp.U[0]))]
+    print("somm_U= ", somme_U)
     l = random_lot(sol_temp, a)
     bef_aft = random.choice([1,2])
     if ((bef_aft == 1) & (somme_U[l]!= len(sol_temp.U[0]) -1)) | (somme_U[l] == 0) : # on permute avec le lot qui vient AVANT
@@ -77,6 +81,8 @@ def U_move(sol_temp):
             ind_l2 = getlot_before(sol_temp, l, a, somme_U) ## problem if the lot is the only one procesed on j 
         sol_temp.U[a][l][ind_l2],sol_temp.U[a][ind_l2][l] = sol_temp.U[a][ind_l2][l],sol_temp.U[a][l][ind_l2]
 
+    return [sol_temp, ("U", a,l,ind_l2)]
+            
 def X_move(sol_temp):
     done= 0
     while done == 0:
@@ -88,29 +94,28 @@ def X_move(sol_temp):
             sol_temp.X[l][a_actu],sol_temp.X[l][a] = sol_temp.X[l][a],sol_temp.X[l][a_actu]
             done = 1
     
+    return [sol_temp, ("X", l, a_actu,a)]
 def move(sol_temp ):
     k = random.choice([1, 2, 3]) # choix aléatoire de la mtrice à modifier 1-> Y, 2-> U, 3-> X
     #k=3
     if k == 1: 
-        Y_move(sol_temp)
-        #print("le nouveau Y", self.sol_init.Y)
+        print("we change Y")
+        the_move = Y_move(sol_temp)
+        print("le nouveau Y", sol_init.Y)
     else: 
         if k == 2:
-            U_move(sol_temp)
-            #print("le nouveau U", self.sol_init.U)
+            print("we change U")
+            the_move = U_move(sol_temp)
+
+            print("le nouveau U", sol_init.U)
         else:
-            X_move(sol_temp)
-            #print("le nouveau X", self.sol_init.X)
-    return sol_temp
-
-class tabu_searhc:
-    def __init__(self, sol_init, n_max,iter_max):
-        self.sol_init = sol_init
-        self.n_max = n_max
-        self.iter_max = iter_max
+            print("we change X")
+            the_move = X_move(sol_temp)
+            print("le nouveau X", sol_init.X)
+    return the_move
 
 
-
+"""
 
 # example -----
 #tabu_sol = tabu_searhc(sol_init, 8,8)
@@ -130,7 +135,7 @@ print("did somethin change?",
 ((sol_init.Y == sol_const.Y) & (sol_init.U == sol_const.U) & (sol_init.X == sol_const.X)) )
 print("Cmax = ", sol.Cmax)
 print("--- %s seconds to move and decode ---" % (time.time() - start_time))
-"""
+
 print(hex(id(sol_init.Y[0])))
 print(hex(id(sol_init.Y[1])))
 print(hex(id(sol_init.Y[2])))

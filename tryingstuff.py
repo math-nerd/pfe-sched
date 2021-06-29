@@ -13,15 +13,15 @@ start_time = time.time()
 # Exemple de l'instance:
 mfab=3
 lin=2
-netmin = 12
-netmaj = 24
+netmin = 1
+netmaj = 16
 #on définit les produit
-prod1 = product('produit1', [2, 3, 2, 18, 0], 18, 1, 0, 0,1)
-prod2 = product('produit2', [1, 3, 3, 0, 16], 16, 1, 0, 0, 1)
-prod3 = product('produit3', [2, 4, 4, 20, 20], 20, 1, 0, 0, 1)
-prod4 = product('produit4', [3, 3, 0, 15, 15], 15, 1, 0, 0, 1)
-prod5 = product('produit5', [3, 2, 0, 18, 0], 18, 1, 0, 0, 1)
-prod6 = product('produit1', [2, 3, 0, 0, 17], 17, 1, 0, 0, 1)
+prod1 = product('produit1', [3, 5, 3, 16, 0], 16, 170, 0, 0,1)
+prod2 = product('produit2', [3, 5, 3, 21, 0], 21, 15, 0, 0, 1)
+prod3 = product('produit3', [3, 5, 3, 22, 22], 22, 78, 0, 0, 4)
+prod4 = product('produit4', [3, 5, 3, 0, 15], 15, 230, 0, 0, 1)
+prod5 = product('produit5', [3, 5, 3, 0, 24], 24, 23, 0, 0, 1)
+prod6 = product('produit1', [3, 5, 3, 16, 0], 16, 46, 0, 0, 1)
 prod=[prod1, prod2, prod3, prod4, prod5, prod6]
 
 # On définit l'instances
@@ -40,12 +40,12 @@ X = sol_const.X
 
 sol_init = solution(jssp, X, Y, U)
 sol_init.decode()
-"""
+
 print("Y = ", sol_init.Y)
 print("U = ", sol_init.U)
 print("X = ", sol_init.X)
 print("FT =", sol_init.FT)
 print("CT = ", sol_init.CT)
 print("la valeur de la fonction objectif =", sol_init.Cmax)
-"""
+
 print("--- %s seconds to decode ---" % (time.time() - start_time))
