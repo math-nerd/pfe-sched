@@ -1,5 +1,9 @@
+from typing import Protocol
+from solution import solution
 from product import product
 from jssp_instance import instance
+import copy
+
 
 def colonne(liste, j):
         return[item[j] for item in liste]
@@ -36,7 +40,7 @@ class construct_sol:
                         self.Y[machg][lot][l]=1
                 jtimes[prod_max]=-1
         for j in range(self.inst.mfab):
-            self.Y[j] = list(self.Y[machg])
+            self.Y[j] = self.Y[machg].copy()
 
         
     def fill_X(self):
@@ -44,7 +48,7 @@ class construct_sol:
         T=[0]*self.inst.lin
         for l in range(self.inst.L):
             ind = somme_Y.index(max(somme_Y))
-            list_T=list(T)
+            list_T=T.copy()
             for a in range(self.inst.lin):
                 a_i=list_T.index(min(list_T))
                 if (sum(self.inst.con[i][a_i]*self.inst.b[i][ind] for i in range(self.inst.n)) == 1):
@@ -62,7 +66,7 @@ class construct_sol:
         for i in range(self.inst.n):
             lin_min = somme_con.index(min(somme_con)) 
             k= sum(self.inst.lots[0:lin_min]) # nbr de lots avant lin_min
-            list_T=list(T)
+            list_T=T.copy()
             for l in range(k, k+self.inst.lots[lin_min]):
                 deja_vu.append(l)
                 for a in range(self.inst.lin):
@@ -86,45 +90,19 @@ class construct_sol:
             machg= self.mach_goulot()
             self.fill_Y(machg)
             for a in range(self.inst.lin):
-                self.U[a]= list(self.Y[0])
+                self.U[a]= self.Y[0].copy()
             self.fill_X()
         else:## Le goulot au niveau du conditionnement 
             self.fill_XU()
             for j in range(self.inst.mfab):
-                self.Y[j]= list(self.U[0])
+                self.Y[j]= copy.deepcopy(self.U[0])
 
                     
+
+
 
         
 
 
 
 
-
-
-
-
-
-
-
-mfab=3
-lin=2
-netmin = 4
-netmaj = 18
-prod1 = product('produit1', [3, 5, 3, 16, 0], 16, 170, 0, 0,1)
-prod2 = product('produit2', [3, 5, 3, 21, 0], 21, 15, 0, 0, 1)
-prod3 = product('produit3', [3, 5, 3, 22, 22], 22, 78, 0, 0, 4)
-prod4 = product('produit4', [3, 5, 3, 0, 15], 15, 230, 0, 0, 1)
-prod5 = product('produit5', [3, 5, 3, 0, 24], 24, 23, 0, 0, 1)
-prod6 = product('produit1', [3, 5, 3, 16, 0], 16, 46, 0, 0, 1)
-
-prod=[prod1, prod2, prod3, prod4, prod5, prod6]
-
-
-jssp = instance(mfab, lin , netmin, netmaj, prod)
-jssp.process_input()
-sol_init=construct_sol(jssp)
-sol_init.greedy()
-print("Y = ", sol_init.Y)
-print("U = ", sol_init.U)
-print("X = ", sol_init.X)

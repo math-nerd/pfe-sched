@@ -4,6 +4,7 @@ def colonne(liste, j): ## fonction pour avoir la colonne j+1 d'une matrice (list
 
 class product: # classe des produit
     def __init__(self, name, pt, pc, dem, sinit, ssec, lsize):
+        #self.id = id
         self.name = name
         self.pt = pt
         self.pc = pc
@@ -13,4 +14,5 @@ class product: # classe des produit
         self.lsize = lsize
         self.lots = int(math.ceil(self.dem/self.lsize)) + self.ssec - self.sinit #clacul de nombre de lots à fabriquer
 
+#prod1 = product("001",'Produit 1', [3, 5, 3, 40, 0], 40, )
 

@@ -85,26 +85,4 @@ class instance : # classe des instances du problème
         self.L = sum(self.lots)
 
 
-"""
-## Exemple
-mfab=3
-lin=2
-netmin = 4
-netmaj = 18
-prod1 = product('produit1', [2, 3, 2, 18, 0], 18, 1000, 4, 5, 100)
-prod2 = product('produit2', [1, 3, 3, 0, 16], 16, 2000, 5, 3, 150)
-prod3 = product('produit3', [2, 4, 4, 20, 20], 20, 1500, 0, 5, 100)
-prod4 = product('produit4', [3, 3, 0, 15, 15], 15, 1000, 0, 2, 175)
-prod5 = product('produit5', [3, 2, 0, 18, 0], 18, 2550, 3, 10, 250)
-prod6 = product('produit1', [2, 3, 0, 0, 17], 17, 3000, 7, 3, 200)
 
-prod=[prod1, prod2, prod3, prod4, prod5, prod6]
-
-jssp = instance(mfab, lin , netmin, netmaj, prod)
-jssp.process_input()
-#print(jssp.fab)
-#print(jssp.con)
-#print(jssp.g)
-#print(jssp.b)
-#print(len(jssp.g))
-"""

@@ -15,7 +15,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(709, 368)
-        MainWindow.setStyleSheet("background-color: rgb(238, 238, 236);")
+        MainWindow.setStyleSheet("background-color: rgb(192, 236, 242);\n"
+"background-color: rgb(249, 252, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -53,7 +54,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Ordonnancement"))
         self.pushButton.setText(_translate("MainWindow", "Valider"))
         self.Titre.setText(_translate("MainWindow", "Ordonnancement des atelier de production"))
         self.label_machine.setText(_translate("MainWindow", "Entrez le nombre de machine de fabrication"))

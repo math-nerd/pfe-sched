@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Ordo</class>
+ <widget class="QMainWindow" name="Ordo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>662</width>
+    <height>472</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(192, 236, 242);
+background-color: rgb(249, 252, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="photo">
+    <property name="geometry">
+     <rect>
+      <x>-40</x>
+      <y>-60</y>
+      <width>721</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../DM/19366.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sched">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>370</y>
+      <width>251</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(249, 252, 255);
+border-color: rgb(192, 236, 242);
+font: 12pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Obtenir le plan de production</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>531</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 20pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Ordonnancement des ateliers de production</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_mach">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>170</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Machines</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_con">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>170</y>
+      <width>211</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Lignes de conditionnement</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_prod">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>166</y>
+      <width>67</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Produits</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="mach_fab">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>125</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="stepType">
+     <enum>QAbstractSpinBox::DefaultStepType</enum>
+    </property>
+    <property name="value">
+     <number>3</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="mach_fab_2">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>130</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="stepType">
+     <enum>QAbstractSpinBox::DefaultStepType</enum>
+    </property>
+    <property name="value">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="mach_fab_3">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>130</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="stepType">
+     <enum>QAbstractSpinBox::DefaultStepType</enum>
+    </property>
+    <property name="value">
+     <number>6</number>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>300</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string>Janvier</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="maxVisibleItems">
+     <number>12</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>Janvier</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Février</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mars</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Avril</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mai</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Juin</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Juillet</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Août  </string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Septembre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Octobre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Novembre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Décembre</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>300</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string>Janvier</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="maxVisibleItems">
+     <number>12</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>Janvier</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Février</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mars</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Avril</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mai</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Juin</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Juillet</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Août  </string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Septembre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Octobre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Novembre</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Décembre</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_mach_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>310</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>De</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_mach_3">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>310</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(191, 64, 64, 0);
+font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="text">
+     <string>à</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>230</y>
+      <width>501</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 13pt &quot;Gayathri&quot;;</string>
+    </property>
+    <property name="placeholderText">
+     <string>Entrer le nom du fichier contenant les données</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

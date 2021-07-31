@@ -3,7 +3,9 @@ from product import product
 from jssp_instance import instance
 from construct_heurstic import construct_sol
 from solution import solution
-from tryingstuff import *
+import copy
+#from random_sol import fill_X, fill_YU
+
 
 
 def random_lot(sol_temp, j):
@@ -45,25 +47,31 @@ def getlot_after(sol_temp, l, j, somme_Y):
         ind_l2 = somme_Y.index(pos_l2)
     return ind_l2
 
-def Y_move(sol_temp):
-    j = random.choice(range(sol_temp.inst.mfab)) # choix aléatoire de la machine 
-    somme_Y = [sum(sol_temp.Y[j][l]) for l in range(len(sol_temp.Y[0]))]
-    print("somm_Y=",  somme_Y)
-    l = random_lot(sol_temp, j)
+def Y_move(sol):
+    sol_temp = copy.deepcopy(sol)
+    #j = random.choice(range(sol_temp.inst.mfab)) # choix aléatoire de la machine 
+    somme_Y = [sum(sol_temp.Y[0][l]) for l in range(len(sol_temp.Y[0]))]
+    #print("somm_Y=",  somme_Y)
+    l = random_lot(sol_temp, 0)
     bef_aft = random.choice([1,2])
     if ((bef_aft == 1) & (somme_Y[l]!=len(sol_temp.Y[0]) -1)) | (somme_Y[l] == 0) : # on permute avec le lot qui vient AVANT
-        ind_l2 = getlot_before(sol_temp, l, j, somme_Y)
-        if (check_process(sol_temp, ind_l2, j) == 0 & somme_Y[ind_l2] == len(somme_Y)):
-            ind_l2 = getlot_after(sol_temp, l, j, somme_Y) ## problem if the lot is the only one procesed on j 
-        sol_temp.Y[j][l][ind_l2],sol_temp.Y[j][ind_l2][l] = sol_temp.Y[j][ind_l2][l],sol_temp.Y[j][l][ind_l2]
+        ind_l2 = getlot_before(sol_temp, l, 0, somme_Y)
+        if (check_process(sol_temp, ind_l2, 0) == 0 & somme_Y[ind_l2] == len(somme_Y)):
+            ind_l2 = getlot_after(sol_temp, l, 0, somme_Y) ## problem if the lot is the only one procesed on j 
+        sol_temp.Y[0][l][ind_l2],sol_temp.Y[0][ind_l2][l] = sol_temp.Y[0][ind_l2][l],sol_temp.Y[0][l][ind_l2]
     else:
-        ind_l2 = getlot_after(sol_temp, l, j, somme_Y)
-        if (check_process(sol_temp, ind_l2, j) == 0 & somme_Y[ind_l2] == len(somme_Y)):
-            ind_l2 = getlot_before(sol_temp, l, j, somme_Y) ## problem if the lot is the only one procesed on j 
-        sol_temp.Y[j][l][ind_l2],sol_temp.Y[j][ind_l2][l] = sol_temp.Y[j][ind_l2][l],sol_temp.Y[j][l][ind_l2]
+        ind_l2 = getlot_after(sol_temp, l, 0, somme_Y)
+        if (check_process(sol_temp, ind_l2, 0) == 0 & somme_Y[ind_l2] == len(somme_Y)):
+            ind_l2 = getlot_before(sol_temp, l, 0, somme_Y) ## problem if the lot is the only one procesed on j 
+        sol_temp.Y[0][l][ind_l2],sol_temp.Y[0][ind_l2][l] = sol_temp.Y[0][ind_l2][l],sol_temp.Y[0][l][ind_l2]
+    
+    for j in range(sol_temp.inst.mfab):
+        sol_temp.Y[j] = copy.deepcopy(sol_temp.Y[0])
+    for a in range(sol_temp.inst.lin):
+        sol_temp.U[a] = copy.deepcopy(sol_temp.Y[0])
 
-    return [sol_temp, ('Y',j,l,ind_l2)]
-            
+    return [sol_temp, ("Y/U",l,ind_l2)]
+"""           
 def U_move(sol_temp):
     a = random.choice(range(sol_temp.inst.lin)) # choix aléatoire de la ligne 
     somme_U = [sum(sol_temp.U[a][l]) for l in range(len(sol_temp.U[0]))]
@@ -82,8 +90,11 @@ def U_move(sol_temp):
         sol_temp.U[a][l][ind_l2],sol_temp.U[a][ind_l2][l] = sol_temp.U[a][ind_l2][l],sol_temp.U[a][l][ind_l2]
 
     return [sol_temp, ("U", a,l,ind_l2)]
-            
-def X_move(sol_temp):
+"""
+
+def X_move(sol):
+    sol_temp = copy.deepcopy(sol)
+
     done= 0
     while done == 0:
         l = random.choice(range(sum(sol_temp.inst.lots)))
@@ -94,50 +105,33 @@ def X_move(sol_temp):
             sol_temp.X[l][a_actu],sol_temp.X[l][a] = sol_temp.X[l][a],sol_temp.X[l][a_actu]
             done = 1
     
-    return [sol_temp, ("X", l, a_actu,a)]
-def move(sol_temp ):
-    k = random.choice([1, 2, 3]) # choix aléatoire de la mtrice à modifier 1-> Y, 2-> U, 3-> X
-    #k=3
+    return [sol_temp, (l, a_actu,a)]
+
+def move(sol):
+    sol_temp = copy.deepcopy(sol)
+    #k = random.choice([1, 2, 3]) # choix aléatoire de la mtrice à modifier 1-> Y, 2-> U, 3-> X
+    k = random.choice([1, 2,3]) 
     if k == 1: 
-        print("we change Y")
         the_move = Y_move(sol_temp)
-        print("le nouveau Y", sol_init.Y)
+        the_move[0].FT = []
+        the_move[0].CT = [0]*sum(the_move[0].inst.lots)
+        the_move[0].Cmax = 0
+        #print("le nouveau Y", the_move[0].Y)
     else: 
         if k == 2:
-            print("we change U")
-            the_move = U_move(sol_temp)
+            the_move = Y_move(sol_temp)
+            the_move[0].FT = []
+            the_move[0].CT = [0]*sum(the_move[0].inst.lots)
+            the_move[0].Cmax = 0
 
-            print("le nouveau U", sol_init.U)
+            #print("le nouveau U", the_move[0].U)
         else:
-            print("we change X")
+            #print("we change X")
             the_move = X_move(sol_temp)
-            print("le nouveau X", sol_init.X)
+            the_move[0].FT = []
+            the_move[0].CT = [0]*sum(the_move[0].inst.lots)
+            the_move[0].Cmax = 0
+            #print("le nouveau X", the_move[0].X)
     return the_move
 
 
-"""
-
-# example -----
-#tabu_sol = tabu_searhc(sol_init, 8,8)
-#print ("Y = ", sol_init.Y)
-#print ("U = ", sol_init.U)
-#print ("X = ", sol_init.X)
-#j = random.choice(range(mfab))
-#l = random.choice(range(jssp.L))
-#k = sum([sol_init.inst.fab[i][j] * sol_init.inst.b[i][l] for i in range(sol_init.inst.n)])
-#print("k=", k)
-print("Cmax initial =", sol_init.Cmax)
-move(sol_init)
-#tabu_sol.move(sol_init)
-sol = solution(jssp, sol_init.X, sol_init.Y, sol_init.U)
-sol.decode()
-print("did somethin change?", 
-((sol_init.Y == sol_const.Y) & (sol_init.U == sol_const.U) & (sol_init.X == sol_const.X)) )
-print("Cmax = ", sol.Cmax)
-print("--- %s seconds to move and decode ---" % (time.time() - start_time))
-
-print(hex(id(sol_init.Y[0])))
-print(hex(id(sol_init.Y[1])))
-print(hex(id(sol_init.Y[2])))
-                
-"""
